@@ -26,13 +26,13 @@ public class Game implements Runnable{
     /**
      * The playground that the two players will play on.
      */
-    private final PlayGround playGround;
+    private final GameBoard playGround;
 
     /**
      * Creates new instance of the game.
      */
     public Game(){
-        this.playGround = new PlayGround();
+        this.playGround = new GameBoard();
     }
     /**
      * This place contains the logic of the game.
