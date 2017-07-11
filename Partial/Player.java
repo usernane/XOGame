@@ -20,7 +20,15 @@
  * @author Ibrahim
  */
 public class Player {
+    /**
+     * The ID of the player.
+     * Each player must have a unique ID.
+     */
     private final int playerId;
+    /**
+     * The character that will be placed on the game board.
+     * It can be 'X' or 'O'.
+     */
     private Character x_or_o;
     
     /**
