@@ -16,16 +16,31 @@
 
 
 /**
- * The playground is the place where the two players will put 'X' and 'O'.
+ * This class represents a paper where the two players will draw the game grid.
  * @author Ibrahim
  */
-public class PlayGround{
+public class GameBoard{
+    /**
+     * The grid in which the players will place 'X' or 'O'.
+     */
     private final Character [][] gameGrid;
+    /**
+     * Player 1.
+     */
     private final Player firstPlayer;
+    /**
+     * Player 2.
+     */
     private final Player secondPlayer;
+    /**
+     * A number represents the player that will play.
+     * 1 means player 1 and 2 means player 2.
+     */
     private int turn;
-    
-    public PlayGround(){
+    /**
+     * Create new instance of the game board.
+     */
+    public GameBoard(){
         this.gameGrid = new Character[3][3];
         this.firstPlayer = new Player(1);
         this.firstPlayer.setChar('X');
@@ -68,7 +83,11 @@ public class PlayGround{
         }
         return true;
     }
-    
+    /**
+     * Returns the winner of the game if there is a one.
+     * The method will return null if there is no winner.
+     * @return the winner of the game or null.
+     */
     public Player getWinner(){
         boolean rowsCheck = this.checkRows();
         boolean colCheck = this.checkColumns();
@@ -174,10 +193,5 @@ public class PlayGround{
             }
         }
         return false;
-    }
-    public static void main(String a[]){
-        PlayGround p = new PlayGround();
-        System.out.println(p);
-        System.out.println(p.checkColumns());
     }
 }
