@@ -1,3 +1,6 @@
+
+import java.util.ArrayList;
+
 /*
  * Copyright 2017 Ibrahim.
  *
@@ -20,6 +23,7 @@
  * @author Ibrahim
  */
 public class Player {
+    private ArrayList<PlayerListener> listeners;
     /**
      * The ID of the player.
      * Each player must have a unique ID.
@@ -37,8 +41,16 @@ public class Player {
      * @param Id the ID of the player.
      */
     public Player(int Id){
+        this.listeners = new ArrayList<>();
         this.playerId = Id;
     }
+    
+    public void addPlayerListener(PlayerListener listener){
+        if(listener != null){
+            this.listeners.add(listener);
+        }
+    }
+    
     /**
      * Sets the character that the player will use on the game board.
      * It can be 'X' or 'O'.
