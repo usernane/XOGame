@@ -17,6 +17,7 @@
 
 /**
  * This class represents an entity that can change the game board.
+ * Note that the implementation of this file is not complete.
  * @author Ibrahim
  */
 public class Player {
