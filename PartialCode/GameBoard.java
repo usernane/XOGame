@@ -78,6 +78,21 @@ public class GameBoard{
         return this.turn;
     }
 
+	
+    /**
+     * Returns true if one of the players is a winner.
+     * The method itself does not till who is the winner. 
+     * It only checks the grid. If one full row, column or diagonal of
+     * 'X's or 'O's is found, the method will return true.
+     * @return true if one of the players is a winner.
+     */
+    private boolean isWinner(){
+        boolean rowsCheck = this.checkRows();
+        boolean colCheck = this.checkColumns();
+        boolean diagonalsCheck = this.checkDiagonals();
+        return rowsCheck || colCheck || diagonalsCheck;  
+    }
+	
     @Override
     public String toString(){
         String retVal = "";
