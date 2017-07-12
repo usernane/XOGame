@@ -19,7 +19,7 @@
  * This class represents a paper where the two players will draw the game grid.
  * @author Ibrahim
  */
-public class GameBoard implements PlayerListener{
+public class GameBoard{
     /**
      * The grid in which the players will place 'X' or 'O'.
      */
@@ -39,34 +39,6 @@ public class GameBoard implements PlayerListener{
     public GameBoard(){
         this.gameGrid = new Character[3][3];
         this.turn = 1;
-    }
-
-    @Override
-    public void play(Player source, int rowIndex, int colIndex) {
-        if(this.gameGrid[rowIndex][colIndex] == null){
-            
-            //switch turns
-            if(turn == 1){
-                turn = 2;
-            }
-            else if(turn == 2){
-                turn = 1;
-            }
-            
-            //place the 'X' or 'O' on the grid
-            this.gameGrid[rowIndex][colIndex] = source.getChar();
-            
-            //check if the source player is the winner
-            boolean rowsCheck = this.checkRows();
-            boolean colCheck = this.checkColumns();
-            boolean diagonalsCheck = this.checkDiagonals();
-            if(rowsCheck || colCheck || diagonalsCheck){
-                this.winner = source;
-            }
-        }
-        else{
-            System.out.println("Choose Another Place to Play!");
-        }
     }
     
     /**

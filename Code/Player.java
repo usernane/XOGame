@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-import java.util.ArrayList;
-
 /**
  * This class represents an entity that can change the game board.
  * @author Ibrahim
  */
 public class Player {
-    private final ArrayList<PlayerListener> listeners;
+    //private final ArrayList<PlayerListener> listeners;
     /**
      * The ID of the player.
      * Each player must have a unique ID.
@@ -39,14 +37,7 @@ public class Player {
      * @param Id the ID of the player.
      */
     public Player(int Id){
-        this.listeners = new ArrayList<>();
         this.playerId = Id;
-    }
-    
-    public void addPlayerListener(PlayerListener listener){
-        if(listener != null){
-            this.listeners.add(listener);
-        }
     }
     
     /**
@@ -69,9 +60,7 @@ public class Player {
      * @param colIndex the column index.
      */
     public void play(int rowIndex, int colIndex){
-        for(PlayerListener l : this.listeners){
-            l.play(this, rowIndex, colIndex);
-        }
+
     }
     /**
      * Return the ID of the player.
