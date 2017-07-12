@@ -57,16 +57,27 @@ public class GameBoard implements PlayerListener{
             this.gameGrid[rowIndex][colIndex] = source.getChar();
             
             //check if the source player is the winner
-            boolean rowsCheck = this.checkRows();
-            boolean colCheck = this.checkColumns();
-            boolean diagonalsCheck = this.checkDiagonals();
-            if(rowsCheck || colCheck || diagonalsCheck){
+            if(this.isWinner()){
                 this.winner = source;
             }
+            
         }
         else{
             System.out.println("Choose Another Place to Play!");
         }
+    }
+    /**
+     * Returns true if one of the players is a winner.
+     * The method itself does not till who is the winner. 
+     * It only checks the grid. If one full row, column or diagonal of
+     * 'X's or 'O's is found, the method will return true.
+     * @return true if one of the players is a winner.
+     */
+    private boolean isWinner(){
+        boolean rowsCheck = this.checkRows();
+        boolean colCheck = this.checkColumns();
+        boolean diagonalsCheck = this.checkDiagonals();
+        return rowsCheck || colCheck || diagonalsCheck;  
     }
     
     /**

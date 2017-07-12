@@ -20,7 +20,6 @@ import java.util.Scanner;
 /**
  * This class contains the main game logic.
  * @author Ibrahim
- *
  */
 public class Game implements Runnable{
 
@@ -56,12 +55,15 @@ public class Game implements Runnable{
      */
     @Override
     public void run() {
+        
+        //loop as long as the game is not finished
         while(!this.gameBoard.isGameFinished()){
             Scanner inputReader;
             int rowIndex;
             int columnIndex;
             int turn = this.gameBoard.getTurn();
             
+            //show who will play next
             if(turn == 1){
                 System.out.println("It is player 1 turn: ");
             }
@@ -97,9 +99,12 @@ public class Game implements Runnable{
                 this.secondPlayer.play(rowIndex, columnIndex);
             }
             
+            //print the game board after player's move
             System.out.println("The game board after this move:");
             System.out.println(this.gameBoard);
         }
+        
+        //once the game ends, see if there is a winner
         Player winner = this.gameBoard.getWinner();
         if(winner != null){
             System.out.println("The Winner Is: "+winner);
