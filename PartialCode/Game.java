@@ -19,6 +19,7 @@ import java.util.Scanner;
 
 /**
  * This class contains the main game logic.
+ * Note that the implementation of this file is not complete.
  * @author Ibrahim
  */
 public class Game implements Runnable{
