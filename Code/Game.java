@@ -20,6 +20,7 @@ import java.util.Scanner;
 /**
  * This class contains the main game logic.
  * @author Ibrahim
+ *
  */
 public class Game implements Runnable{
 
