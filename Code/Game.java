@@ -45,6 +45,10 @@ public class Game implements Runnable{
         this.secondPlayer = new Player(2);
         this.firstPlayer.setChar('X');
         this.secondPlayer.setChar('O');
+        
+        //adding the game board as a listener to both players.
+        this.firstPlayer.addPlayerListener(this.gameBoard);
+        this.secondPlayer.addPlayerListener(this.gameBoard);
     }
     /**
      * This place contains the logic of the game.
