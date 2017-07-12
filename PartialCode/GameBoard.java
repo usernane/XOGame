@@ -17,6 +17,7 @@
 
 /**
  * This class represents a paper where the two players will draw the game grid.
+ * Note that the implementation of this file is not complete.
  * @author Ibrahim
  */
 public class GameBoard{
