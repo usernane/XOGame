@@ -19,21 +19,17 @@
  * This class represents a paper where the two players will draw the game grid.
  * @author Ibrahim
  */
-public class GameBoard{
+public class GameBoard implements PlayerListener{
     /**
      * The grid in which the players will place 'X' or 'O'.
      */
     private final Character [][] gameGrid;
     /**
-     * Player 1.
+     * The winner of the game.
      */
-    private final Player firstPlayer;
+    private Player winner;
     /**
-     * Player 2.
-     */
-    private final Player secondPlayer;
-    /**
-     * A number represents the player that will play.
+     * A number represents the player that will play next.
      * 1 means player 1 and 2 means player 2.
      */
     private int turn;
@@ -42,28 +38,37 @@ public class GameBoard{
      */
     public GameBoard(){
         this.gameGrid = new Character[3][3];
-        this.firstPlayer = new Player(1);
-        this.firstPlayer.setChar('X');
-        this.secondPlayer = new Player(2);
-        this.secondPlayer.setChar('O');
         this.turn = 1;
     }
 
-
-    /**
-     * Returns Player 1.
-     * @return Player 1.
-     */
-    public Player getPlayer1(){
-        return this.firstPlayer;
+    @Override
+    public void play(Player source, int rowIndex, int colIndex) {
+        if(this.gameGrid[rowIndex][colIndex] == null){
+            
+            //switch turns
+            if(turn == 1){
+                turn = 2;
+            }
+            else if(turn == 2){
+                turn = 1;
+            }
+            
+            //place the 'X' or 'O' on the grid
+            this.gameGrid[rowIndex][colIndex] = source.getChar();
+            
+            //check if the source player is the winner
+            boolean rowsCheck = this.checkRows();
+            boolean colCheck = this.checkColumns();
+            boolean diagonalsCheck = this.checkDiagonals();
+            if(rowsCheck || colCheck || diagonalsCheck){
+                this.winner = source;
+            }
+        }
+        else{
+            System.out.println("Choose Another Place to Play!");
+        }
     }
-    /**
-     * Returns Player 2.
-     * @return Player 2.
-     */
-    public Player getPlayer2(){
-        return this.secondPlayer;
-    }
+    
     /**
      * Checks if the game is finished.
      * The game is finished only if the game board is full or someone has win 
@@ -89,18 +94,7 @@ public class GameBoard{
      * @return the winner of the game or null.
      */
     public Player getWinner(){
-        boolean rowsCheck = this.checkRows();
-        boolean colCheck = this.checkColumns();
-        boolean diagonalsCheck = this.checkDiagonals();
-        if(rowsCheck || colCheck || diagonalsCheck){
-            if(turn == 2){
-                return this.firstPlayer;
-            }
-            else if(turn == 1){
-                return this.secondPlayer;
-            }
-        }
-        return null;
+        return this.winner;
     }
     /**
      * Return the number of the next player to play.

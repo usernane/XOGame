@@ -24,63 +24,87 @@ import java.util.Scanner;
 public class Game implements Runnable{
 
     /**
+     * Player 1.
+     */
+    private final Player firstPlayer;
+    /**
+     * Player 2.
+     */
+    private final Player secondPlayer;
+    /**
      * The playground that the two players will play on.
      */
-    private final PlayGround playGround;
+    private final GameBoard gameBoard;
 
     /**
      * Creates new instance of the game.
      */
     public Game(){
-        this.playGround = new PlayGround();
+        this.gameBoard = new GameBoard();
+        this.firstPlayer = new Player(1);
+        this.secondPlayer = new Player(2);
+        this.firstPlayer.setChar('X');
+        this.secondPlayer.setChar('O');
+        
+        //adding the game board as a listener to both players.
+        this.firstPlayer.addPlayerListener(this.gameBoard);
+        this.secondPlayer.addPlayerListener(this.gameBoard);
     }
     /**
      * This place contains the logic of the game.
      */
     @Override
     public void run() {
-        while(!this.playGround.isGameFinished()){
-            int turn = this.playGround.getTurn();
+        while(!this.gameBoard.isGameFinished()){
+            Scanner inputReader;
+            int rowIndex;
+            int columnIndex;
+            int turn = this.gameBoard.getTurn();
+            
             if(turn == 1){
                 System.out.println("It is player 1 turn: ");
             }
             else{
                 System.out.println("It is player 2 turn: ");
             }
+            
+            //reads and validates row index.
             System.out.print("Enter the row index: ");
-            Scanner input = new Scanner(System.in);
-            int row = input.nextInt();
-            if(!this.isValidateInput(row)){
+            inputReader = new Scanner(System.in);
+            rowIndex = inputReader.nextInt();
+            if(!this.isValidateInput(rowIndex)){
                 System.out.println("Invalid Row Index!");
                 continue;
             }
+            
+            //reads and validates column index.
             System.out.print("Enter the column index: ");
-            int col = input.nextInt();
-            if(!this.isValidateInput(col)){
+            columnIndex = inputReader.nextInt();
+            if(!this.isValidateInput(columnIndex)){
                 System.out.println("Invalid Column Index!");
                 continue;
             }
-            boolean validMove;
+            
+            /*
+                when the method 'play() of the class 'Player' is called, 
+                the game board is notifyed since it is observing the player.
+            */
             if(turn == 1){
-                validMove = this.playGround.getPlayer1().play(row, col);
+                this.firstPlayer.play(rowIndex, columnIndex);
             }
             else{
-                validMove = this.playGround.getPlayer2().play(row, col);
+                this.secondPlayer.play(rowIndex, columnIndex);
             }
-            if(validMove){
-                System.out.println("The game board after this move:");
-                System.out.println(this.playGround);
-            }
-            else{
-                System.out.println("Invalid move!");
-            }
+            
+            System.out.println("The game board after this move:");
+            System.out.println(this.gameBoard);
         }
-        Player winner = this.playGround.getWinner();
+        Player winner = this.gameBoard.getWinner();
         if(winner != null){
             System.out.println("The Winner Is: "+winner);
         }
         else{
-            System.out.println("Tie, No one wins.");
+            System.out.println("Tie, No Winner.");
         }
     }
 
