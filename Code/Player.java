@@ -14,14 +14,23 @@
  * limitations under the License.
  */
 
+import java.util.ArrayList;
 
 /**
  * This class represents an entity that can change the game board.
  * @author Ibrahim
  */
 public class Player {
-    private PlayerListener observer;
+    private final ArrayList<PlayerListener> listeners;
+    /**
+     * The ID of the player.
+     * Each player must have a unique ID.
+     */
     private final int playerId;
+    /**
+     * The character that will be placed on the game board.
+     * It can be 'X' or 'O'.
+     */
     private Character x_or_o;
     
     /**
@@ -30,8 +39,16 @@ public class Player {
      * @param Id the ID of the player.
      */
     public Player(int Id){
+        this.listeners = new ArrayList<>();
         this.playerId = Id;
     }
+    
+    public void addPlayerListener(PlayerListener listener){
+        if(listener != null){
+            this.listeners.add(listener);
+        }
+    }
+    
     /**
      * Sets the character that the player will use on the game board.
      * It can be 'X' or 'O'.
@@ -40,18 +57,7 @@ public class Player {
     public void setChar(char x_or_o){
         this.x_or_o = x_or_o;
     }
-    /**
-     * Attache an observer as a listener to the player.
-     * The listener is basically an object that is interested in what the player 
-     * does. In this case, the observer is the game board. The game board is 
-     * interested in the move that the player will do.
-     * @param l 
-     */
-    public void addPlayerListener(PlayerListener l){
-        if(l != null){
-            this.observer = l;
-        }
-    }
+
     /**
      * Place an 'X' or 'O' on the game board.
      * The game board is simply a 3x3 2D array. The first argument represents 
@@ -59,12 +65,13 @@ public class Player {
      * the move that the player does is valid, the method will return true. Else,
      * the method will return false. A move is valid only if the place that the 
      * player is playing on is empty.
-     * @param x the row index.
-     * @param y the column index.
-     * @return true if the player move is valid.
+     * @param rowIndex the row index.
+     * @param colIndex the column index.
      */
-    public boolean play(int x, int y){
-        return this.observer.play(this, this.x_or_o, x, y);
+    public void play(int rowIndex, int colIndex){
+        for(PlayerListener l : this.listeners){
+            l.play(this, rowIndex, colIndex);
+        }
     }
     /**
      * Return the ID of the player.
@@ -72,6 +79,13 @@ public class Player {
      */
     public int getID(){
         return this.playerId;
+    }
+    /**
+     * Returns the character that will be used by the player.
+     * @return the character that will be used by the player.
+     */
+    public Character getChar() {
+        return this.x_or_o;
     }
     
     @Override

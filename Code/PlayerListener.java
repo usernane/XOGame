@@ -9,5 +9,5 @@
  * @author Ibrahim
  */
 public interface PlayerListener {
-    public boolean play(Player source, int row, int col, char x_or_o);
+    public void play(Player source, int rowIndex, int colIndex);
 }
